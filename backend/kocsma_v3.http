@@ -1,0 +1,6 @@
+@kocsma_v3_HostAddress = http://localhost:5147
+
+GET {{kocsma_v3_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
