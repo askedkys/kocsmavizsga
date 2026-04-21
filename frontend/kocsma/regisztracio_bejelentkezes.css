@@ -1,0 +1,197 @@
+/* ====================================================== */
+/* REGISZTRÁCIÓ/BEJELENTKEZÉS OLDAL
+/* ====================================================== */
+
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background-image: url('hatter.png');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    text-align: center;
+    position: relative;
+}
+
+/* NAVIGÁCIÓS SÁV */
+.top-navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(5px);
+    z-index: 1000;
+    padding: 0 20px;
+}
+
+.nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 70px;
+}
+
+.nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #ffffff;
+    text-decoration: none;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+}
+
+.nav-logo .emoji { color: #ff6b6b; }
+
+.nav-links {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    gap: 15px;
+}
+
+.nav-link {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    color: #ffffff;
+    font-weight: 500;
+    font-size: 1rem;
+    padding: 8px 12px;
+    border-radius: 8px;
+}
+
+.nav-link .emoji { font-size: 1.1rem; color: #4a90e2; }
+.nav-link:hover { background: rgba(255, 255, 255, 0.2); }
+.nav-link.active { background: rgba(255, 255, 255, 0.25); font-weight: 600; }
+
+/* LOGO */
+.logo-container, .button-group, form, #hibaUzenet { margin-top: 100px; }
+
+.logo-container {
+    position: relative;
+    margin: 40px auto 20px;
+    width: 180px;
+    height: 180px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.projekt-logo {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.1));
+    pointer-events: none;
+}
+
+/* FORMOK */
+form {
+    background: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(5px);
+    padding: 30px;
+    border-radius: 15px;
+    width: 100%;
+    max-width: 450px;
+    margin-top: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+form h3 {
+    color: #ffffff;
+    margin: 0 0 25px;
+    font-size: 1.4rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+}
+
+form input {
+    width: 100%;
+    padding: 14px;
+    margin: 12px 0;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.15);
+    color: #ffffff;
+    box-sizing: border-box;
+}
+
+form input::placeholder { color: rgba(255, 255, 255, 0.6); }
+form input:focus {
+    outline: none;
+    border-color: #4a90e2;
+    background: rgba(255, 255, 255, 0.25);
+}
+
+form button {
+    width: 100%;
+    padding: 14px;
+    background: linear-gradient(135deg, #4a90e2, #357abd);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+form button:hover { background: linear-gradient(135deg, #357abd, #2a6496); }
+
+/* HIBAÜZENET */
+#hibaUzenet {
+    margin-top: 20px;
+    font-size: 16px;
+    text-align: center;
+    padding: 15px 25px;
+    opacity: 0;
+    transition: opacity 0.3s;
+    max-width: 450px;
+    width: 90%;
+    border-radius: 8px;
+    background: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+#hibaUzenet.show { opacity: 1; }
+#hibaUzenet.success { color: #00b894; border-left: 4px solid #00b894; }
+#hibaUzenet.info { color: #0984e3; border-left: 4px solid #0984e3; }
+#hibaUzenet.error { color: #d63031; border-left: 4px solid #d63031; }
+
+/* RESZPONZÍV */
+@media (max-width: 768px) {
+    .top-navbar { padding: 0 15px; }
+    .nav-container { height: 60px; }
+    .nav-logo span { display: none; }
+    .nav-links { gap: 10px; }
+    .nav-link span { font-size: 0.9rem; }
+    .logo-container { width: 150px; height: 150px; }
+    form { padding: 20px; max-width: 90%; }
+}
+
+@media (max-width: 480px) {
+    .logo-container { width: 120px; height: 120px; }
+    .nav-link span { display: none; }
+    .nav-link .emoji { font-size: 1.2rem; margin: 0; }
+}

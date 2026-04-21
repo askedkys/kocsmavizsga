@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <title>KocsmaPortál</title>
+  <link rel="stylesheet" href="kozos.css">  <!-- 🔥 ÚJ -->
+  <link rel="stylesheet" href="regisztracio_bejelentkezes.css">
+  <script src="api_hivasok.js"></script>
+  <script src="regisztracio_bejelentkezes.js"></script>
+</head>
+<body>
+
+  <!-- Felső navigációs sáv -->
+  <nav class="top-navbar">
+    <div class="nav-container">
+      <div class="nav-logo">
+        <span class="emoji">🍺</span>
+        <span>KocsmaPortál</span>
+      </div>
+      
+      <div class="nav-menu">
+        <ul class="nav-links">
+          <li><a href="#" class="nav-link" id="nav-bejelentkezes">
+            <span class="emoji">🔑</span>
+            <span>Bejelentkezés</span>
+          </a></li>
+          
+          <li><a href="#" class="nav-link" id="nav-regisztracio">
+            <span class="emoji">👤</span>
+            <span>Regisztráció</span>
+          </a></li>
+
+          <li><a href="rolunk.html" class="nav-link" id="nav-rolunk">
+            <span class="emoji">ℹ️</span>
+            <span>Rólunk</span>
+          </a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Logo -->
+  <div class="logo-container">
+    <img src="projekt_logo_web.png" alt="Kocsma PROJEKT Logo" class="projekt-logo">
+  </div>
+
+  <!-- Regisztrációs form -->
+  <form id="registerForm" style="display:block;">
+    <h3>
+      <span class="emoji"></span>Regisztráció
+    </h3>
+    
+    <input type="text" id="nev" placeholder="Teljes név" required>
+    <input type="text" id="felhasznalonev" placeholder="Felhasználónév" required>
+    <input type="email" id="email" placeholder="E-mail (pelda@gmail.com)" required>
+    <input type="password" id="jelszo" placeholder="Jelszó (minimum 6 karakter)" required>
+    
+    <!-- 🔥 MÓDOSÍTVA: btn-success -->
+    <button type="button" onclick="Regisztracio()" class="btn btn-success">
+      <span class="emoji"></span> Regisztráció
+    </button>
+  </form>
+
+  <!-- Bejelentkezési form -->
+  <form id="loginForm" style="display:none;">
+    <h3>
+      <span class="emoji"></span> Bejelentkezés
+    </h3>
+    
+    <input type="text" id="loginFelhasznalonev" placeholder="Felhasználónév" required>
+    <input type="password" id="loginJelszo" placeholder="Jelszó" required>
+    
+    <!-- 🔥 MÓDOSÍTVA: btn-primary -->
+    <button type="button" onclick="Bejelentkezes()" class="btn btn-primary">
+      <span class="emoji"></span> Bejelentkezés
+    </button>
+  </form>
+
+  <div id="hibaUzenet"></div>
+
+</body>
+</html>

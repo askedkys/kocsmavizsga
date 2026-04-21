@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Statisztikák</title>
+    <link rel="stylesheet" href="kozos.css">  <!-- 🔥 ÚJ -->
+    <link rel="stylesheet" href="statisztika.css">
+</head>
+<body>
+    <header>
+        <h1>📊 Statisztikák</h1>
+        
+        <div class="user-info">
+            <span id="userName"></span>
+            <!-- 🔥 MÓDOSÍTVA: btn-circle -->
+            <button id="logoutBtn" class="btn-circle" title="Kijelentkezés">🚪</button>
+        </div>
+    </header>
+
+    <main>
+        <!-- 5 statisztika kártya -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="card-icon">🍺</div>
+                <h3>Kocsmák száma</h3>
+                <div id="kocsmakSzama" class="stat-number">0</div>
+            </div>
+
+            <div class="stat-card">
+                <div class="card-icon">👑</div>
+                <h3>Legtöbb italkészlet</h3>
+                <div id="legnepszerubbKocsma" class="stat-text">–</div>
+                <p id="legnepszerubbKocsmaInfo"></p>
+            </div>
+
+            <div class="stat-card">
+                <div class="card-icon">🥇</div>
+                <h3>TOP 1 Ital</h3>
+                <div id="legtobbetRendeltItal" class="stat-text">–</div>
+                <p id="legtobbetRendeltItalInfo"></p>
+            </div>
+
+            <div class="stat-card">
+                <div class="card-icon">💰</div>
+                <h3>Teljes készlet értéke</h3>
+                <div id="teljesForgalom" class="stat-number">0 Ft</div>
+            </div>
+
+            <div class="stat-card">
+                <div class="card-icon">📦</div>
+                <h3>Összes ital darabszám</h3>
+                <div id="osszesTermekDb" class="stat-number">0</div>
+            </div>
+        </div>
+
+        <!-- Kocsmák listája -->
+        <div class="pubs-list">
+            <h2>🏠 Kocsmák listája</h2>
+            <div id="pubsContainer"></div>
+        </div>
+    </main>
+
+    <div id="toastMessage"></div>
+
+    <script src="statisztika.js"></script>
+</body>
+</html>

@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8" />
+  <title>Kocsmám</title>
+  <link rel="stylesheet" href="kozos.css">  <!-- 🔥 ÚJ -->
+  <link rel="stylesheet" href="kocsma.css" />
+  <script src="api_hivasok.js"></script>
+  <script src="kocsma.js"></script>
+</head>
+<body>
+
+  <header>
+    <h1 id="kocsmaNev">Kocsma neve</h1>
+    <p id="kocsmaCim">📍 Cím</p>
+    <p id="kocsmaTelefon">📞 Telefon</p>
+    
+    <!-- Nyitvatartás táblázat -->
+    <div class="nyitvatartas-container">
+      <table class="nyitvatartas-tabla">
+        <tr>
+          <th>H</th><th>K</th><th>Sze</th><th>Cs</th><th>P</th><th>Szo</th><th>V</th>
+        </tr>
+        <tr>
+          <td id="nyitHetfo">16-24</td>
+          <td id="nyitKedd">16-24</td>
+          <td id="nyitSzerda">16-24</td>
+          <td id="nyitCsutortok">16-24</td>
+          <td id="nyitPentek">16-24</td>
+          <td id="nyitSzombat">14-02</td>
+          <td id="nyitVasarnap">14-22</td>
+        </tr>
+      </table>
+    </div>
+    
+    <div class="user-info">
+        <span id="userName"></span>
+        <!-- 🔥 MÓDOSÍTVA: btn-circle -->
+        <button id="logoutBtn" class="btn-circle" title="Kijelentkezés">🚪</button>
+    </div>
+    
+    <!-- 🔥 MÓDOSÍTVA: btn-primary -->
+    <button id="szerkesztoGomb" class="btn btn-primary">
+      ✏️ Szerkesztés
+    </button>
+  </header>
+
+  <main class="ketpanel">
+    <!-- BAL PANEL - FŐRAKTÁR -->
+    <section class="panel">
+      <h2>🏭 Főraktár</h2>
+      <div class="toolbar">
+        <input id="keresForaruhaz" type="text" placeholder="Keresés (név)" />
+      </div>
+      <div id="fotarLista" class="lista"></div>
+    </section>
+
+    <!-- JOBB PANEL - SAJÁT RAKTÁR -->
+    <section class="panel">
+      <h2>🏠 Saját raktár</h2>
+      <div class="toolbar">
+        <input id="keresKocsma" type="text" placeholder="Keresés (név)" />
+      </div>
+      <div id="kocsmaLista" class="lista"></div>
+    </section>
+  </main>
+
+  <!-- KOCSMAADAT-SZERKESZTŐ MODAL -->
+  <div id="overlayKocsma" class="overlay">
+    <div class="szerkeszto-blokk">
+      <h3>✏️ Adatok módosítása</h3>
+      
+      <div class="sor">
+        <label for="ujNev">Név:</label>
+        <input type="text" id="ujNev" />
+      </div>
+      
+      <div class="sor">
+        <label for="ujCim">Cím:</label>
+        <input type="text" id="ujCim" />
+      </div>
+      
+      <div class="sor">
+        <label for="ujTelefon">Telefon:</label>
+        <input type="text" id="ujTelefon" />
+      </div>
+      
+      <h4 style="margin: 15px 0 5px; color: #ffcc00;">Nyitvatartás</h4>
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 15px;">
+        <div><label style="display: block; font-size: 12px; color: #aaa;">Hétfő:</label><input type="text" id="editHetfo" placeholder="16-24" style="width: 100%; padding: 6px;" /></div>
+        <div><label style="display: block; font-size: 12px; color: #aaa;">Kedd:</label><input type="text" id="editKedd" placeholder="16-24" style="width: 100%; padding: 6px;" /></div>
+        <div><label style="display: block; font-size: 12px; color: #aaa;">Szerda:</label><input type="text" id="editSzerda" placeholder="16-24" style="width: 100%; padding: 6px;" /></div>
+        <div><label style="display: block; font-size: 12px; color: #aaa;">Csütörtök:</label><input type="text" id="editCsutortok" placeholder="16-24" style="width: 100%; padding: 6px;" /></div>
+        <div><label style="display: block; font-size: 12px; color: #aaa;">Péntek:</label><input type="text" id="editPentek" placeholder="16-24" style="width: 100%; padding: 6px;" /></div>
+        <div><label style="display: block; font-size: 12px; color: #aaa;">Szombat:</label><input type="text" id="editSzombat" placeholder="14-02" style="width: 100%; padding: 6px;" /></div>
+        <div><label style="display: block; font-size: 12px; color: #aaa;">Vasárnap:</label><input type="text" id="editVasarnap" placeholder="14-22" style="width: 100%; padding: 6px;" /></div>
+      </div>
+      
+      <div class="gombok">
+        <!-- 🔥 MÓDOSÍTVA: btn-success és btn-cancel -->
+        <button id="mentesGomb" class="btn btn-success">💾 Mentés</button>
+        <button onclick="closeOverlay('overlayKocsma')" class="btn btn-cancel">✖️ Mégse</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- RENDELÉS MODAL -->
+  <div id="overlayRendeles" class="overlay">
+    <div class="szerkeszto-blokk">
+      <h3>🛒 Rendelés</h3>
+
+      <div class="sor">
+        <label>Ital:</label>
+        <div id="rendelesItalNev" style="font-weight:600;"></div>
+      </div>
+
+      <div class="sor">
+        <label>Elérhető a főraktárban:</label>
+        <div id="rendelesElheto"></div>
+      </div>
+
+      <div class="sor">
+        <label for="rendelesMennyiseg">Mennyiség:</label>
+        <input id="rendelesMennyiseg" type="number" min="1" value="1" />
+      </div>
+
+      <div class="sor">
+        <label>Ár (db):</label>
+        <div id="rendelesAr"></div>
+      </div>
+
+      <div class="sor">
+        <label>Összesen:</label>
+        <div id="rendelesOsszesen" style="font-weight:600;"></div>
+      </div>
+
+      <div class="gombok">
+        <!-- 🔥 MÓDOSÍTVA: btn-success és btn-cancel -->
+        <button id="rendelesKuldes" class="btn btn-success">✅ Rendelés</button>
+        <button onclick="closeOverlay('overlayRendeles')" class="btn btn-cancel">✖️ Mégse</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST ÜZENETEK -->
+  <div id="valaszUzenet"></div>
+
+</body>
+</html>
