@@ -3,14 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <title>KocsmaPortál</title>
-  <link rel="stylesheet" href="kozos.css">  <!-- 🔥 ÚJ -->
+  <link rel="stylesheet" href="kozos.css">
   <link rel="stylesheet" href="regisztracio_bejelentkezes.css">
   <script src="api_hivasok.js"></script>
   <script src="regisztracio_bejelentkezes.js"></script>
 </head>
 <body>
 
-  <!-- Felső navigációs sáv -->
   <nav class="top-navbar">
     <div class="nav-container">
       <div class="nav-logo">
@@ -39,12 +38,10 @@
     </div>
   </nav>
 
-  <!-- Logo -->
   <div class="logo-container">
     <img src="projekt_logo_web.png" alt="Kocsma PROJEKT Logo" class="projekt-logo">
   </div>
 
-  <!-- Regisztrációs form -->
   <form id="registerForm" style="display:block;">
     <h3>
       <span class="emoji"></span>Regisztráció
@@ -54,14 +51,12 @@
     <input type="text" id="felhasznalonev" placeholder="Felhasználónév" required>
     <input type="email" id="email" placeholder="E-mail (pelda@gmail.com)" required>
     <input type="password" id="jelszo" placeholder="Jelszó (minimum 6 karakter)" required>
-    
-    <!-- 🔥 MÓDOSÍTVA: btn-success -->
+
     <button type="button" onclick="Regisztracio()" class="btn btn-success">
       <span class="emoji"></span> Regisztráció
     </button>
   </form>
 
-  <!-- Bejelentkezési form -->
   <form id="loginForm" style="display:none;">
     <h3>
       <span class="emoji"></span> Bejelentkezés
@@ -70,7 +65,6 @@
     <input type="text" id="loginFelhasznalonev" placeholder="Felhasználónév" required>
     <input type="password" id="loginJelszo" placeholder="Jelszó" required>
     
-    <!-- 🔥 MÓDOSÍTVA: btn-primary -->
     <button type="button" onclick="Bejelentkezes()" class="btn btn-primary">
       <span class="emoji"></span> Bejelentkezés
     </button>

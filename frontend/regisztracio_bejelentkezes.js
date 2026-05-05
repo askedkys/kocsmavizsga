@@ -1,15 +1,3 @@
-// ======================================================
-// REGISZTRÁCIÓ/BEJELENTKEZÉS KEZELŐ SZKRIPT
-// ======================================================
-
-// ======================================================
-// 1. SEGÉDFÜGGVÉNY - ANIMÁLT ÜZENETEK MEGJELENÍTÉSE
-// ======================================================
-/**
- * Üzenet megjelenítése a hibaDiv-ben 3 másodpercre
- * @param {string} message - A megjelenítendő szöveg
- * @param {string} type - Üzenet típusa: 'error', 'success', 'info'
- */
 function showMessage(message, type = 'error') {
     const hibaDiv = document.getElementById('hibaUzenet');
     
@@ -23,9 +11,6 @@ function showMessage(message, type = 'error') {
     }, 3000);
 }
 
-// ======================================================
-// 2. FORM VÁLTÁS (Regisztráció <-> Bejelentkezés)
-// ======================================================
 function showForm(type) {
     document.getElementById('registerForm').style.display = type === 'register' ? 'block' : 'none';
     document.getElementById('loginForm').style.display = type === 'login' ? 'block' : 'none';
@@ -44,17 +29,11 @@ function showForm(type) {
     }
 }
 
-// ======================================================
-// 3. EMAIL VALIDÁCIÓ
-// ======================================================
 function isValidEmail(email) {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
 }
 
-// ======================================================
-// 4. REGISZTRÁCIÓ KEZELÉS
-// ======================================================
 function Regisztracio() {
     const nev = document.getElementById('nev').value.trim();
     const felhasznalonev = document.getElementById('felhasznalonev').value.trim();
@@ -94,13 +73,11 @@ function Regisztracio() {
         const data = await response.json();
 
         if (response.ok) {
-            showMessage(`Sikeres regisztráció! Üdvözöllek vendégként, ${felhasznalonev}!`, "success");
+            showMessage(`Sikeres regisztráció! Üdvözöllek ${felhasznalonev}!`, "success");
             
             setTimeout(() => {
                 document.getElementById('loginFelhasznalonev').value = felhasznalonev;
-                document.getElementById('loginJelszo').value = jelszo;
                 showForm('login');
-                showMessage("Most már bejelentkezhetsz az új fiókkal!", "success");
             }, 2000);
             
             document.getElementById('nev').value = "";
@@ -119,9 +96,6 @@ function Regisztracio() {
     });
 }
 
-// ======================================================
-// 5. BEJELENTKEZÉS KEZELÉS - 🔥 TOKEN NÉLKÜL
-// ======================================================
 function Bejelentkezes() {
     const felhasznalonev = document.getElementById('loginFelhasznalonev').value.trim();
     const jelszo = document.getElementById('loginJelszo').value.trim();
@@ -140,10 +114,9 @@ function Bejelentkezes() {
         const data = await response.json();
 
         if (response.ok) {
-            // 🔥 TOKEN MENTÉS KIVÉVE! Csak user mentés
             localStorage.setItem("felhasznalo", JSON.stringify(data.felhasznalo));
 
-            showMessage("Sikeres bejelentkezés! Átirányítás...", "success");
+            showMessage("Sikeres bejelentkezés!", "success");
             
             setTimeout(() => {
                 const felhasznalo = data.felhasznalo;
@@ -168,9 +141,6 @@ function Bejelentkezes() {
     });
 }
 
-// ======================================================
-// 6. OLDAL BETÖLTÉS ESEMÉNYKEZELŐ
-// ======================================================
 document.addEventListener('DOMContentLoaded', function() {
     showForm('register');
     

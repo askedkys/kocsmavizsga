@@ -1,7 +1,3 @@
-/* ====================================================== */
-/* REGISZTRÁCIÓ/BEJELENTKEZÉS OLDAL
-/* ====================================================== */
-
 body {
     font-family: 'Segoe UI', sans-serif;
     background-image: url('hatter.png');
@@ -20,7 +16,6 @@ body {
     position: relative;
 }
 
-/* NAVIGÁCIÓS SÁV */
 .top-navbar {
     position: fixed;
     top: 0;
@@ -78,7 +73,6 @@ body {
 .nav-link:hover { background: rgba(255, 255, 255, 0.2); }
 .nav-link.active { background: rgba(255, 255, 255, 0.25); font-weight: 600; }
 
-/* LOGO */
 .logo-container, .button-group, form, #hibaUzenet { margin-top: 100px; }
 
 .logo-container {
@@ -99,7 +93,6 @@ body {
     pointer-events: none;
 }
 
-/* FORMOK */
 form {
     background: rgba(0, 0, 0, 0.3);
     backdrop-filter: blur(5px);
@@ -158,7 +151,6 @@ form button {
 
 form button:hover { background: linear-gradient(135deg, #357abd, #2a6496); }
 
-/* HIBAÜZENET */
 #hibaUzenet {
     margin-top: 20px;
     font-size: 16px;
@@ -179,7 +171,6 @@ form button:hover { background: linear-gradient(135deg, #357abd, #2a6496); }
 #hibaUzenet.info { color: #0984e3; border-left: 4px solid #0984e3; }
 #hibaUzenet.error { color: #d63031; border-left: 4px solid #d63031; }
 
-/* RESZPONZÍV */
 @media (max-width: 768px) {
     .top-navbar { padding: 0 15px; }
     .nav-container { height: 60px; }

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <title>Kocsmám</title>
-  <link rel="stylesheet" href="kozos.css">  <!-- 🔥 ÚJ -->
+  <link rel="stylesheet" href="kozos.css">
   <link rel="stylesheet" href="kocsma.css" />
   <script src="api_hivasok.js"></script>
   <script src="kocsma.js"></script>
@@ -14,8 +14,7 @@
     <h1 id="kocsmaNev">Kocsma neve</h1>
     <p id="kocsmaCim">📍 Cím</p>
     <p id="kocsmaTelefon">📞 Telefon</p>
-    
-    <!-- Nyitvatartás táblázat -->
+
     <div class="nyitvatartas-container">
       <table class="nyitvatartas-tabla">
         <tr>
@@ -35,18 +34,15 @@
     
     <div class="user-info">
         <span id="userName"></span>
-        <!-- 🔥 MÓDOSÍTVA: btn-circle -->
         <button id="logoutBtn" class="btn-circle" title="Kijelentkezés">🚪</button>
     </div>
     
-    <!-- 🔥 MÓDOSÍTVA: btn-primary -->
     <button id="szerkesztoGomb" class="btn btn-primary">
       ✏️ Szerkesztés
     </button>
   </header>
 
   <main class="ketpanel">
-    <!-- BAL PANEL - FŐRAKTÁR -->
     <section class="panel">
       <h2>🏭 Főraktár</h2>
       <div class="toolbar">
@@ -55,7 +51,6 @@
       <div id="fotarLista" class="lista"></div>
     </section>
 
-    <!-- JOBB PANEL - SAJÁT RAKTÁR -->
     <section class="panel">
       <h2>🏠 Saját raktár</h2>
       <div class="toolbar">
@@ -65,7 +60,6 @@
     </section>
   </main>
 
-  <!-- KOCSMAADAT-SZERKESZTŐ MODAL -->
   <div id="overlayKocsma" class="overlay">
     <div class="szerkeszto-blokk">
       <h3>✏️ Adatok módosítása</h3>
@@ -97,14 +91,12 @@
       </div>
       
       <div class="gombok">
-        <!-- 🔥 MÓDOSÍTVA: btn-success és btn-cancel -->
         <button id="mentesGomb" class="btn btn-success">💾 Mentés</button>
         <button onclick="closeOverlay('overlayKocsma')" class="btn btn-cancel">✖️ Mégse</button>
       </div>
     </div>
   </div>
 
-  <!-- RENDELÉS MODAL -->
   <div id="overlayRendeles" class="overlay">
     <div class="szerkeszto-blokk">
       <h3>🛒 Rendelés</h3>
@@ -135,14 +127,12 @@
       </div>
 
       <div class="gombok">
-        <!-- 🔥 MÓDOSÍTVA: btn-success és btn-cancel -->
         <button id="rendelesKuldes" class="btn btn-success">✅ Rendelés</button>
         <button onclick="closeOverlay('overlayRendeles')" class="btn btn-cancel">✖️ Mégse</button>
       </div>
     </div>
   </div>
 
-  <!-- TOAST ÜZENETEK -->
   <div id="valaszUzenet"></div>
 
 </body>

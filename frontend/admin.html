@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Admin felület</title>
-  <link rel="stylesheet" href="kozos.css">  <!-- 🔥 ÚJ -->
+  <link rel="stylesheet" href="kozos.css">
   <link rel="stylesheet" href="admin.css">
   <script src="api_hivasok.js"></script>
   <script src="admin.js"></script>
@@ -15,19 +15,16 @@
     
     <div class="user-info">
         <span id="userName"></span>
-        <!-- 🔥 MÓDOSÍTVA: btn-circle -->
         <button id="logoutBtn" class="btn-circle" title="Kijelentkezés">🚪</button>
     </div>
   </header>
 
   <main>
-    <!-- 1. FELHASZNÁLÓK SZEKCIÓ -->
     <section id="userList">
       <div class="section-head">
         <h2>👤 Felhasználók</h2>
         <div class="actions">
           <input id="searchUsers" type="text" placeholder="Keresés (felhasználónév, email)">
-          <!-- 🔥 MÓDOSÍTVA: btn-success -->
           <button onclick="ujFelhasznalo()" class="btn btn-success">➕ Új felhasználó</button>
         </div>
       </div>
@@ -42,13 +39,11 @@
       </table>
     </section>
 
-    <!-- 2. KOCSMÁK SZEKCIÓ -->
     <section id="pubList">
       <div class="section-head">
         <h2>🏠 Kocsmák</h2>
         <div class="actions">
           <input id="searchPubs" type="text" placeholder="Keresés (név, cím)">
-          <!-- 🔥 MÓDOSÍTVA: btn-success -->
           <button onclick="ujKocsma()" class="btn btn-success">➕ Új kocsma</button>
         </div>
       </div>
@@ -63,13 +58,11 @@
       </table>
     </section>
 
-    <!-- 3. KÖZPONTI RAKTÁR SZEKCIÓ -->
     <section id="stockList">
       <div class="section-head">
         <h2>🍺 Központi raktár</h2>
         <div class="actions">
           <input id="searchStock" type="text" placeholder="Keresés (név, származás)">
-          <!-- 🔥 MÓDOSÍTVA: btn-success -->
           <button onclick="ujItal()" class="btn btn-success">➕ Új ital</button>
         </div>
       </div>
@@ -85,25 +78,22 @@
     </section>
   </main>
 
-  <!-- Felhasználó szerkesztő modal -->
   <div id="overlayFelhasznalo" class="overlay">
     <div id="szerkesztoFelhasznalo" class="szerkeszto-blokk">
       <h3>✏️ Felhasználó szerkesztése</h3>
       <div class="sor"><label>Név</label><input id="editNev" placeholder="Pl. Kovács János"></div>
       <div class="sor"><label>Felhasználónév</label><input id="editFnev" placeholder="Pl. kovacs.janos"></div>
       <div class="sor"><label>Email</label><input id="editEmail" type="email" placeholder="pelda@email.hu"></div>
-      <div class="sor"><label>Jelszó</label><input id="editJelszo" type="password" placeholder="••••••••"></div>
+      <div class="sor"><label>Jelszó</label><input id="editJelszo" type="password" placeholder="••••••"></div>
       <div class="sor"><label>Kocsma ID (opcionális)</label><input id="editKocsmaId" type="number" min="0" placeholder="Pl. 1"></div>
       <div class="sor"><label><input type="checkbox" id="editAdmin"><span style="margin-left:8px;">Admin jogosultság</span></label></div>
       <div class="gombok">
-        <!-- 🔥 MÓDOSÍTVA: btn-success és btn-cancel -->
         <button id="mentesFelhasznalo" class="btn btn-success">💾 Mentés</button>
         <button onclick="closeOverlay('overlayFelhasznalo')" class="btn btn-cancel">✖️ Mégse</button>
       </div>
     </div>
   </div>
 
-  <!-- Kocsma szerkesztő modal -->
   <div id="overlayKocsma" class="overlay">
     <div id="szerkesztoKocsma" class="szerkeszto-blokk">
       <h3>✏️ Kocsma szerkesztése</h3>
@@ -113,32 +103,28 @@
       <div class="sor"><label>Tulaj felhasználó</label><input id="editKocsmaTulaj" list="felhasznaloLista" placeholder="Felhasználónév"></div>
       <datalist id="felhasznaloLista"></datalist>
       <div class="gombok">
-        <!-- 🔥 MÓDOSÍTVA: btn-success és btn-cancel -->
         <button id="mentesKocsma" class="btn btn-success">💾 Mentés</button>
         <button onclick="closeOverlay('overlayKocsma')" class="btn btn-cancel">✖️ Mégse</button>
       </div>
     </div>
   </div>
 
-  <!-- Ital szerkesztő modal -->
   <div id="overlayItal" class="overlay">
     <div id="szerkesztoItal" class="szerkeszto-blokk">
       <h3>✏️ Ital szerkesztése</h3>
       <div class="sor"><label>Név</label><input id="editItalNev" placeholder="Pl. Soproni IPA"></div>
       <div class="sor"><label>Mennyiség</label><input id="editItalMennyiseg" type="number" min="0" placeholder="100"></div>
       <div class="sor"><label>Ár (Ft)</label><input id="editItalAr" type="number" step="0.01" min="0" placeholder="890"></div>
-      <div class="sor"><label>Alkoholszázalék</label><input id="editItalAlkohol" type="number" min="0" max="100" placeholder="5.2"></div>
+      <div class="sor"><label>Alkoholszázalék</label><input id="editItalAlkohol" type="number" min="0" max="100" placeholder="10"></div>
       <div class="sor"><label>Származás</label><input id="editItalSzarmazas" placeholder="Pl. Magyarország"></div>
       <div class="sor"><label>Kiszerelés (L)</label><input id="editItalKiszereles" type="number" step="0.01" min="0" placeholder="0.5"></div>
       <div class="gombok">
-        <!-- 🔥 MÓDOSÍTVA: btn-success és btn-cancel -->
         <button id="mentesItal" class="btn btn-success">💾 Mentés</button>
         <button onclick="closeOverlay('overlayItal')" class="btn btn-cancel">✖️ Mégse</button>
       </div>
     </div>
   </div>
 
-  <!-- TOAST KONTÉNER -->
   <div id="toastContainer"></div>
 
 </body>

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Statisztikák</title>
-    <link rel="stylesheet" href="kozos.css">  <!-- 🔥 ÚJ -->
+    <link rel="stylesheet" href="kozos.css">
     <link rel="stylesheet" href="statisztika.css">
 </head>
 <body>
@@ -13,13 +13,11 @@
         
         <div class="user-info">
             <span id="userName"></span>
-            <!-- 🔥 MÓDOSÍTVA: btn-circle -->
             <button id="logoutBtn" class="btn-circle" title="Kijelentkezés">🚪</button>
         </div>
     </header>
 
     <main>
-        <!-- 5 statisztika kártya -->
         <div class="stats-grid">
             <div class="stat-card">
                 <div class="card-icon">🍺</div>
@@ -54,7 +52,6 @@
             </div>
         </div>
 
-        <!-- Kocsmák listája -->
         <div class="pubs-list">
             <h2>🏠 Kocsmák listája</h2>
             <div id="pubsContainer"></div>
@@ -63,6 +60,7 @@
 
     <div id="toastMessage"></div>
 
+    <script src="api_hivasok.js"></script>
     <script src="statisztika.js"></script>
 </body>
 </html>

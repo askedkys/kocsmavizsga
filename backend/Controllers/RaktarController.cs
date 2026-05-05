@@ -9,20 +9,11 @@ namespace kocsma_v3.Controllers
     public class RaktarController : ControllerBase
     {
         private readonly KocsmaContext context;
-
         public RaktarController(KocsmaContext context)
         {
             this.context = context;
         }
 
-        // ======================================================
-        // FŐRAKTÁR ITALOK LISTÁZÁSA
-        // ======================================================
-
-        /// <summary>
-        /// Összes alkoholos ital lekérése a központi raktárból
-        /// </summary>
-        /// <returns>Italok listája névvel, mennyiséggel, árral, alkohol%-kal stb.</returns>
         [HttpGet("italok")]
         public IActionResult OsszesAlkoholosItal()
         {

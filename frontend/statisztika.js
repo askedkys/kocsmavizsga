@@ -1,17 +1,13 @@
-// ======================================================
-// STATISZTIKA OLDAL - JAVASCRIPT
-// ======================================================
-
-const STATISZTIKA_URL = "http://localhost:5147/api/statisztika";
-const KOCSMA_URL = "http://localhost:5147/api/kocsma/osszes";
-
 let betoltesFolyamatban = false;
 
 document.addEventListener('DOMContentLoaded', function() {
-    // 🔥 USER ellenőrzés TOKEN helyett
+
     const user = JSON.parse(localStorage.getItem('felhasznalo') || '{}');
-    if (user.nev) {
-        document.getElementById('userName').textContent = user.nev;
+
+    const megjelenitettNev = user.felhasznalonev || user.nev;
+
+    if (megjelenitettNev) {
+        document.getElementById('userName').textContent = megjelenitettNev;
     } else {
         window.location.href = 'regisztracio_bejelentkezes.html';
         return;
@@ -41,10 +37,9 @@ async function betoltMindenAdat() {
     try {
         betoltesFolyamatban = true;
 
-        // 🔥 TOKEN HEADER NÉLKÜL
         const [statRes, kocsmaRes] = await Promise.all([
-            fetch(STATISZTIKA_URL),
-            fetch(KOCSMA_URL)
+            fetch(API.statisztika.osszes),
+            fetch(API.statisztika.kocsmak)
         ]);
 
         if (!statRes.ok || !kocsmaRes.ok) {
@@ -54,7 +49,6 @@ async function betoltMindenAdat() {
         const statData = await statRes.json();
         const kocsmaData = await kocsmaRes.json();
 
-        // Statisztika beállítása
         document.getElementById('kocsmakSzama').textContent = statData.kocsmakSzama || 0;
 
         const kocsma = statData.legnepszerubbKocsma || {};
@@ -72,7 +66,6 @@ async function betoltMindenAdat() {
         document.getElementById('osszesTermekDb').textContent = 
             (statData.osszesTermekDb || 0).toLocaleString('hu-HU');
 
-        // Kocsmák megjelenítése
         megjelenitKocsmak(kocsmaData);
 
     } catch (error) {

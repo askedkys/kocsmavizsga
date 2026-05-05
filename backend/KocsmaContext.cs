@@ -8,26 +8,26 @@ namespace kocsma_v3
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseMySQL("server=localhost; database=kocsma_v3 ;uid=root; pw=;");
+            optionsBuilder.UseMySQL("server=localhost; database=kocsma_v3; uid=root; pw=;");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            // Felhasználó – Kocsma kapcsolat (felhasznaloadatok.KocsmaId → kocsmak.KocsmaId)
+            // Felhasználó – Kocsma kapcsolat
             modelBuilder.Entity<AdatokModell>()
                 .HasOne(f => f.Kocsma)
                 .WithMany()
                 .HasForeignKey(f => f.KocsmaId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            // Kocsma – KocsmaRaktar kapcsolat (kocsaraktar.KocsmaId → kocsmak.KocsmaId)
+            // Kocsma – KocsmaRaktar kapcsolat
             modelBuilder.Entity<KocsmaRaktarModell>()
                 .HasOne(r => r.Kocsma)
                 .WithMany()
                 .HasForeignKey(r => r.KocsmaId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            // Ital – KocsmaRaktar kapcsolat (kocsaraktar.ItalId → alkoholositalokraktar.ItalId)
+            // Ital – KocsmaRaktar kapcsolat
             modelBuilder.Entity<KocsmaRaktarModell>()
                 .HasOne(r => r.Ital)
                 .WithMany()

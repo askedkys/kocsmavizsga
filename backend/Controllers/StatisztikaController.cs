@@ -11,37 +11,25 @@ namespace kocsma_v3.Controllers
     public class StatisztikaController : ControllerBase
     {
         private readonly KocsmaContext _context;
-
         public StatisztikaController(KocsmaContext context)
         {
             _context = context;
         }
 
-        // ======================================================
-        // TELJES RENDSZER STATISZTIKA LEKÉRÉSE
-        // ======================================================
-
-        /// <summary>
-        /// Átfogó statisztikák lekérése a teljes rendszerről
-        /// </summary>
-        /// <returns>Kocsmák száma, legnépszerűbb kocsma, legkeresettebb ital, forgalmi adatok</returns>
         [HttpGet]
         public IActionResult GetStatisztika()
         {
             try
             {
-                // ===== 1. KOCSMÁK SZÁMA =====
                 var kocsmakSzama = _context.Kocsmak.Count();
 
-                // ===== 2. LEGNÉPSZERŰBB KOCSMA ( - LEGTÖBB ITALLAL RENDELKEZIK) =====
-                // Az a kocsma, amelynek a legtöbb ital van a raktárában (legnagyobb forgalmú)
                 var legnepszerubbKocsma = _context.KocsmaRaktar
                     .Include(kr => kr.Kocsma)
                     .GroupBy(kr => kr.KocsmaId)
                     .Select(g => new
                     {
                         KocsmaId = g.Key,
-                        OsszMennyiseg = g.Sum(kr => kr.Mennyiseg)  // Összes ital mennyisége a kocsmában
+                        OsszMennyiseg = g.Sum(kr => kr.Mennyiseg)
                     })
                     .OrderByDescending(x => x.OsszMennyiseg)
                     .FirstOrDefault();
@@ -57,15 +45,13 @@ namespace kocsma_v3.Controllers
                     legnepszerubbKocsmaMennyiseg = legnepszerubbKocsma.OsszMennyiseg;
                 }
 
-                // ===== 3. LEGTÖBBET RENDELT ITAL =====
-                // Az az ital, amelyből a legtöbb darab van összesen a kocsmákban (legkeresettebb)
                 var legtobbetRendeltItal = _context.KocsmaRaktar
                     .Include(kr => kr.Ital)
                     .GroupBy(kr => kr.ItalId)
                     .Select(g => new
                     {
                         ItalId = g.Key,
-                        OsszMennyiseg = g.Sum(kr => kr.Mennyiseg)  // Összes darabszám az összes kocsmában
+                        OsszMennyiseg = g.Sum(kr => kr.Mennyiseg)
                     })
                     .OrderByDescending(x => x.OsszMennyiseg)
                     .FirstOrDefault();
@@ -81,26 +67,20 @@ namespace kocsma_v3.Controllers
                     legtobbetRendeltItalMennyiseg = legtobbetRendeltItal.OsszMennyiseg;
                 }
 
-                // ===== 4. TELJES FORGALOM ÉRTÉKE =====
-                // Az összes kocsmában lévő összes ital összértéke (mennyiség * ár)
                 var teljesForgalom = _context.KocsmaRaktar
                     .Include(kr => kr.Ital)
                     .Sum(kr => kr.Mennyiseg * kr.Ar);
 
-                // ===== 5. ÖSSZES TERMÉK DARABSZÁM =====
-                // Az összes kocsmában lévő összes ital darabszáma
                 var osszesTermekDb = _context.KocsmaRaktar
                     .Sum(kr => kr.Mennyiseg);
 
-                // ===== 6. LEGÉRTÉKESEBB ITAL =====
-                // Az az ital, amelyik a legnagyobb összértékben van jelen a kocsmákban
                 var legertekesebbItal = _context.KocsmaRaktar
                     .Include(kr => kr.Ital)
                     .GroupBy(kr => kr.ItalId)
                     .Select(g => new
                     {
                         ItalId = g.Key,
-                        OsszErtek = g.Sum(kr => kr.Mennyiseg * kr.Ar)  // Összérték (mennyiség * ár)
+                        OsszErtek = g.Sum(kr => kr.Mennyiseg * kr.Ar)
                     })
                     .OrderByDescending(x => x.OsszErtek)
                     .FirstOrDefault();
@@ -116,27 +96,26 @@ namespace kocsma_v3.Controllers
                     legertekesebbItalErtek = legertekesebbItal.OsszErtek;
                 }
 
-                // ===== 7. EREDMÉNY ÖSSZEÁLLÍTÁSA =====
                 var statisztika = new
                 {
-                    kocsmakSzama,  // Összes kocsma száma
+                    kocsmakSzama,
 
-                    legnepszerubbKocsma = new  // Legnagyobb forgalmú kocsma
+                    legnepszerubbKocsma = new
                     {
                         Nev = legnepszerubbKocsmaNev,
                         RendelesDb = legnepszerubbKocsmaMennyiseg
                     },
 
-                    legtobbetRendeltItal = new  // Legtöbbet rendelt ital
+                    legtobbetRendeltItal = new
                     {
                         Nev = legtobbetRendeltItalNev,
                         Darab = legtobbetRendeltItalMennyiseg
                     },
 
-                    teljesForgalom,  // Teljes készletérték (Ft)
-                    osszesTermekDb,  // Összes ital darabszám
+                    teljesForgalom,
+                    osszesTermekDb,
 
-                    legertekesebbItal = new  // Legnagyobb értékű ital
+                    legertekesebbItal = new
                     {
                         Nev = legertekesebbItalNev,
                         OsszErtek = legertekesebbItalErtek

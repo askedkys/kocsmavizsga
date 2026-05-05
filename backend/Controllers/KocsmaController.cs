@@ -17,13 +17,6 @@ namespace kocsma_v3.Controllers
             this.context = context;
         }
 
-        // ======================================================
-        // GET VÉGPONTOK - KOCSMA ADATOK LEKÉRÉSE
-        // ======================================================
-
-        /// <summary>
-        /// Összes kocsma listázása
-        /// </summary>
         [HttpGet("osszes")]
         public IActionResult OsszesKocsma()
         {
@@ -31,10 +24,6 @@ namespace kocsma_v3.Controllers
             return Ok(kocsmak);
         }
 
-        /// <summary>
-        /// Egy adott kocsma adatainak lekérése ID alapján
-        /// </summary>
-        /// <param name="id">Kocsma azonosítója</param>
         [HttpGet("{id}")]
         public IActionResult GetKocsmaById(int id)
         {
@@ -45,19 +34,13 @@ namespace kocsma_v3.Controllers
             return Ok(kocsma);
         }
 
-        /// <summary>
-        /// Adott kocsma saját raktárkészletének lekérése
-        /// </summary>
-        /// <param name="id">Kocsma azonosítója</param>
         [HttpGet("{id}/raktar")]
         public IActionResult SajatRaktar(int id)
         {
-            // Kocsma létezésének ellenőrzése
             var kocsmaVan = context.Kocsmak.Any(k => k.KocsmaId == id);
             if (!kocsmaVan)
                 return NotFound(new { uzenet = "Nincs ilyen kocsma." });
 
-            // Kocsma raktárkészletének lekérése az Ital adatokkal együtt
             var keszlet = context.KocsmaRaktar
                 .Include(r => r.Ital)
                 .Where(r => r.KocsmaId == id)
@@ -73,33 +56,20 @@ namespace kocsma_v3.Controllers
             return Ok(keszlet);
         }
 
-        // ======================================================
-        // PUT VÉGPONTOK - KOCSMA ADATOK MÓDOSÍTÁSA
-        // ======================================================
-
-        /// <summary>
-        /// Kocsma adatainak módosítása - 🔥 KIBŐVÍTVE NYITVATARTÁSSAL
-        /// </summary>
-        /// <param name="id">Módosítandó kocsma azonosítója</param>
-        /// <param name="frissitett">Frissített kocsma adatok</param>
         [HttpPut("{id}")]
         public IActionResult KocsmaModositasa(int id, [FromBody] KocsmaModell frissitett)
         {
-            // Kocsma keresése
             var kocsma = context.Kocsmak.FirstOrDefault(k => k.KocsmaId == id);
             if (kocsma == null)
                 return NotFound(new { uzenet = "Nincs ilyen kocsma." });
 
-            // Jogosultság ellenőrzés - csak a tulajdonos módosíthatja
             if (kocsma.TulajFelhasznalo != frissitett.TulajFelhasznalo)
                 return Unauthorized(new { uzenet = "Nem módosíthatod más kocsmáját." });
 
-            // Kocsma alapadatok frissítése
             kocsma.Nev = frissitett.Nev;
             kocsma.Cim = frissitett.Cim;
             kocsma.Telefon = frissitett.Telefon;
 
-            // 🔥 NYITVATARTÁS MEZŐK FRISSÍTÉSE
             kocsma.Hetfo = frissitett.Hetfo;
             kocsma.Kedd = frissitett.Kedd;
             kocsma.Szerda = frissitett.Szerda;

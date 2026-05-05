@@ -8,38 +8,31 @@ namespace kocsma_v3
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // Add services to the container.
-
             builder.Services.AddControllers()
               .AddJsonOptions(options =>
                 {
                     options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
                 });
             builder.Services.AddDbContext<KocsmaContext>();
-            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
-
-
             builder.Services.AddCors(options =>
             {
-
-                options.AddPolicy("AllowAllOrigins", builder =>
-                {
-                    builder.AllowAnyOrigin()
-                           .AllowAnyMethod()
-                           .AllowAnyHeader();
-                });
-
+                options.AddPolicy("AllowAllOrigins",
+                    policy =>
+                    {
+                        policy.WithOrigins("https://kocsma_fr.vizsgaremek.xyz")
+                              .AllowAnyHeader()
+                              .AllowAnyMethod()
+                              .AllowCredentials();
+                    });
             });
-
-
-
 
             var app = builder.Build();
 
-            // Configure the HTTP request pipeline.
+            app.UseCors("AllowAllOrigins");
+
             if (app.Environment.IsDevelopment())
             {
                 app.UseSwagger();
@@ -47,10 +40,6 @@ namespace kocsma_v3
             }
 
             app.UseAuthorization();
-
-
-            app.UseCors("AllowAllOrigins");
-
 
             app.MapControllers();
 

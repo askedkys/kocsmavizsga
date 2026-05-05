@@ -1,17 +1,18 @@
-// ======================================================
-// ADMIN FELÜLET - JAVASCRIPT
-// ======================================================
-
-// ======================================================
-// KIJELENTKEZÉS FUNKCIÓ
-// ======================================================
 function kijelentkezes() {
     window.location.href = 'regisztracio_bejelentkezes.html';
 }
 
-// ======================================================
-// OVERLAY VEZÉRLÉS
-// ======================================================
+document.addEventListener('DOMContentLoaded', () => {
+    const user = JSON.parse(localStorage.getItem('felhasznalo') || '{}');
+
+    if (user.nev) {
+        const nameElem = document.getElementById('userName');
+        if (nameElem) {
+            nameElem.textContent = user.nev;
+        }
+    }
+});
+
 function openOverlay(id) {
   const el = document.getElementById(id);
   if (el) el.style.display = "flex";
@@ -22,9 +23,6 @@ function closeOverlay(id) {
   if (el) el.style.display = "none";
 }
 
-// ======================================================
-// TOAST ÜZENET
-// ======================================================
 function showToast(msg, type = "success") {
   const container = document.getElementById("toastContainer");
   if (!container) return;
@@ -35,9 +33,6 @@ function showToast(msg, type = "success") {
   setTimeout(() => toast.remove(), 3000);
 }
 
-// ======================================================
-// SEGÉDFÜGGVÉNYEK
-// ======================================================
 function tryNumber(v, def = 0) {
   const n = Number(v);
   return Number.isFinite(n) ? n : def;
@@ -49,9 +44,6 @@ function escapeHtml(s) {
   }[c]));
 }
 
-// ======================================================
-// FELHASZNÁLÓK KEZELÉSE
-// ======================================================
 let usersCache = [];
 let aktualisFelhasznaloId = null;
 
@@ -77,7 +69,6 @@ function loadUsers() {
     .catch(err => showToast("❌ " + err.message, "error"));
 }
 
-// 🔥 MÓDOSÍTVA: btn-danger és btn-primary + btn-sm
 function renderUsers(users) {
   const tbody = document.getElementById("usersTableBody");
   if (!tbody) return;
@@ -192,9 +183,6 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
-// ======================================================
-// KOCSMÁK KEZELÉSE
-// ======================================================
 let pubsCache = [];
 let aktualisKocsmaId = null;
 
@@ -208,7 +196,6 @@ function loadPubs() {
     .catch(err => showToast("❌ " + err.message, "error"));
 }
 
-// 🔥 MÓDOSÍTVA: btn-danger és btn-primary + btn-sm
 function renderPubs(pubs) {
   const tbody = document.getElementById("pubsTableBody");
   if (!tbody) return;
@@ -312,9 +299,6 @@ function torolKocsma(id) {
     .catch(err => showToast("❌ " + err.message, "error"));
 }
 
-// ======================================================
-// KÖZPONTI RAKTÁR KEZELÉSE
-// ======================================================
 let stockCache = [];
 let aktualisItalId = null;
 
@@ -328,7 +312,6 @@ function loadCentralStock() {
     .catch(err => showToast("❌ " + err.message, "error"));
 }
 
-// 🔥 MÓDOSÍTVA: btn-danger és btn-primary + btn-sm
 function renderStock(items) {
   const tbody = document.getElementById("stockTableBody");
   if (!tbody) return;
@@ -446,9 +429,6 @@ function torolItal(id) {
     .catch(err => showToast("❌ " + err.message, "error"));
 }
 
-// ======================================================
-// INICIALIZÁLÁS
-// ======================================================
 document.addEventListener("DOMContentLoaded", () => {
   document.getElementById('logoutBtn').addEventListener('click', kijelentkezes);
   loadUsers();
